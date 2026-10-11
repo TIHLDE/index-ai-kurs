@@ -1,0 +1,20 @@
+name: Sjekk
+
+on:
+    pull_request:
+
+concurrency:
+    group: sjekk-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    check:
+        name: Typesjekk, lint, tester og bygg
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - uses: actions/checkout@v4
+            - uses: oven-sh/setup-bun@v2
+            - run: bun install --frozen-lockfile
+            - run: bun run check
