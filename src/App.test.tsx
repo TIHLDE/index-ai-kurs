@@ -31,6 +31,13 @@ describe("forsiden", () => {
         expect(eventTitles()).toHaveLength(9);
         expect(eventTitles()).not.toContain("Immatrikuleringsfest");
     });
+
+    it("har knapper som går til arrangementer og grupper", () => {
+        renderAt("/");
+
+        expect(screen.getByRole("link", { name: "Se arrangementer" })).toHaveAttribute("href", "/arrangementer");
+        expect(screen.getByRole("link", { name: "Gruppeoversikt" })).toHaveAttribute("href", "/grupper");
+    });
 });
 
 describe("arrangementer", () => {

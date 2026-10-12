@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router";
 
 import { EventCard } from "#/components/event-card";
 import { HeroSectionBackground } from "#/components/hero-section";
@@ -65,10 +66,10 @@ function Hero() {
                     forretningsutvikling, Digital transformasjon og Informasjonsbehandling ved NTNU.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-2">
-                    <Button size="lg">
+                    <Button size="lg" render={<Link to="/arrangementer" />}>
                         Se arrangementer
                     </Button>
-                    <Button size="lg" variant="outline">
+                    <Button size="lg" variant="outline" render={<Link to="/grupper" />}>
                         Gruppeoversikt
                     </Button>
                 </div>
