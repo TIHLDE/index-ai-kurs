@@ -74,7 +74,7 @@ Gjør stegene under én gang for hver ting du vil lage.
 
 ### 1. Velg hva du skal lage
 
-Velg noe fra [menyen](#meny) lenger ned, eller finn på noe selv. Velg noe lite først.
+Velg noe fra [menyen](#meny) lenger ned, eller finn på noe selv. Velg noe lite først, for eksempel en av feilene.
 
 ### 2. Sett rammene
 
@@ -168,6 +168,16 @@ git pull
 I Index går en merge til `main` rett ut til alle brukerne. Da må du også sjekke at det virker på den ekte siden etterpå. Mini-Kvark har ingen ekte side, så her stopper du ved merge.
 
 ## Meny
+
+### Feil som må fikses
+
+Noen har rotet til siden. Disse er fine å starte med.
+
+- Logoen midt på forsiden er altfor stor. Den skal være omtrent en tredel så høy
+- Knappene «Se arrangementer» og «Gruppeoversikt» på forsiden gjør ingenting når du trykker på dem
+- Arrangementene i lista er ujevne. Bildene har ulik størrelse, og lange titler stikker ut av kortet
+- Logoen i arrangementsbildene står skjevt og blir kuttet
+- Bunnteksten ser rar ut på mobil. Alt er presset sammen i tre smale spalter
 
 ### Lett
 

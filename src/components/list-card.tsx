@@ -39,29 +39,29 @@ export function ListCard({
             children: (
                 <>
                     <div
-                        className={`relative ${IMAGE_PRESETS["cover-wide"].aspectClassName} w-full shrink-0 overflow-hidden rounded-lg bg-muted sm:w-52 sm:self-start`}
+                        className={`relative ${IMAGE_PRESETS["cover-wide"].aspectClassName} w-full overflow-hidden rounded-lg bg-muted sm:flex-1 sm:self-start`}
                     >
                         <img
                             src={imageUrl || DEFAULT_COVER_IMAGE}
                             alt={imageAlt ?? ""}
                             loading="lazy"
                             decoding="async"
-                            className="size-full object-cover"
+                            className="size-full translate-x-8 translate-y-3 scale-110 object-cover"
                         />
                         {imageBadge ? (
                             <Badge className="absolute right-2 bottom-2">{imageBadge}</Badge>
                         ) : null}
                     </div>
-                    <div className="flex min-w-0 flex-1 flex-col gap-2">
+                    <div className="flex flex-col gap-2 sm:shrink-0">
                         <div className="flex items-start justify-between gap-2">
-                            <h3 className="line-clamp-1 text-lg sm:text-xl">{title}</h3>
+                            <h3 className="text-lg whitespace-nowrap sm:text-xl">{title}</h3>
                             {titleBadge ? <div className="shrink-0">{titleBadge}</div> : null}
                         </div>
                         <div className="flex flex-col gap-1 text-sm text-muted-foreground">
                             {meta.map((row, i) => (
-                                <div key={i} className="flex min-w-0 items-center gap-2">
+                                <div key={i} className="flex items-center gap-2">
                                     <row.icon className="size-4 shrink-0" />
-                                    <span className="truncate">{row.text}</span>
+                                    <span className="whitespace-nowrap">{row.text}</span>
                                 </div>
                             ))}
                         </div>

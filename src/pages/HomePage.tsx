@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router";
 
 import { EventCard } from "#/components/event-card";
 import { HeroSectionBackground } from "#/components/hero-section";
@@ -59,17 +58,17 @@ function Hero() {
                 }
             >
                 <div className="flex items-center" style={{ color: "var(--color-logo, currentColor)" }}>
-                    <TihldeLogo variant="full" className="h-14 w-auto" />
+                    <TihldeLogo variant="full" className="h-42 w-auto" />
                 </div>
                 <p className="max-w-2xl text-balance">
                     Linjeforeningen for Dataingeniør, Digital infrastruktur og cybersikkerhet, Digital
                     forretningsutvikling, Digital transformasjon og Informasjonsbehandling ved NTNU.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-2">
-                    <Button size="lg" render={<Link to="/arrangementer" />}>
+                    <Button size="lg">
                         Se arrangementer
                     </Button>
-                    <Button size="lg" variant="outline" render={<Link to="/grupper" />}>
+                    <Button size="lg" variant="outline">
                         Gruppeoversikt
                     </Button>
                 </div>

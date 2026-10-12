@@ -50,7 +50,7 @@ export const events: Event[] = [
     },
     {
         id: "bedpres-nordlys",
-        title: "Bedpres med Nordlys Konsulent",
+        title: "Bedpres med Nordlys Konsulent: slik er hverdagen som nyutdannet utvikler",
         category: "bedpres",
         start: daysFromNow(5, "16:15"),
         end: daysFromNow(5, "19:00"),

@@ -39,7 +39,7 @@ describe("arrangementer", () => {
 
         expect(eventTitles()).toEqual([
             "Kurs: Kod med AI",
-            "Bedpres med Nordlys Konsulent",
+            "Bedpres med Nordlys Konsulent: slik er hverdagen som nyutdannet utvikler",
             "Kurs: Git for nybegynnere",
             "Quiz på kjelleren",
             "Bedpres med Fjordbanken",

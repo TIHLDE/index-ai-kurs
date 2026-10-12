@@ -5,7 +5,7 @@ export function SiteFooter() {
     return (
         <footer className="w-full">
             <Separator variant="subtle" />
-            <div className="container mx-auto grid gap-6 px-4 py-6 md:grid-cols-3 md:gap-8 md:py-10">
+            <div className="container mx-auto grid grid-cols-3 gap-6 px-4 py-6 md:gap-8 md:py-10">
                 <div className="flex flex-col items-center gap-1 text-center md:items-start md:gap-2 md:text-left">
                     <h3 className="font-heading text-sm font-semibold">
                         Kontakt
@@ -56,7 +56,7 @@ export function SiteFooter() {
                     </a>
                 </div>
 
-                <div className="flex items-center justify-center gap-6 md:col-span-3 md:gap-3">
+                <div className="flex flex-col items-center justify-center gap-6 md:col-span-3 md:flex-row md:gap-3">
                     <a
                         href="https://www.facebook.com/tihlde"
                         target="_blank"
