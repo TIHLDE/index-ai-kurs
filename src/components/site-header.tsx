@@ -95,5 +95,9 @@ function renderLink(link: NavLink) {
         return <Link to={link.to} />;
     }
 
+    if (link.sameTab) {
+        return <a href={link.href} />;
+    }
+
     return <a href={link.href} target="_blank" rel="noopener noreferrer" />;
 }

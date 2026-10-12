@@ -10,6 +10,7 @@ export type ExternalLink = {
     label: string;
     href: string;
     description?: string;
+    sameTab?: boolean;
 };
 
 export type NavLink = InternalLink | ExternalLink;
@@ -42,5 +43,5 @@ export const navItems: NavItem[] = [
         ],
     },
     { kind: "internal", label: "Arrangementer", to: "/arrangementer" },
-    { kind: "external", label: "Wiki", href: "https://wiki.tihlde.org" },
+    { kind: "external", label: "Wiki", href: "https://wiki.tihlde.org", sameTab: true },
 ];
