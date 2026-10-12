@@ -3,12 +3,12 @@ import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { cn } from "#/lib/utils";
 
 /**
- * Prosenten som leses opp, formatert likt på server og klient.
+ * The percentage that is read aloud, formatted the same on server and client.
  *
- * Uten dette formaterer Base UI den med `Intl.NumberFormat` og standardlokalet
- * på hver side: serveren skriver «40%», nettleseren «40 %» (med hardt
- * mellomrom), og React kastet en hydration-feil på `aria-valuetext` for hver
- * framdriftslinje på sida.
+ * Without this, Base UI formats it with `Intl.NumberFormat` and the default
+ * locale on each side: the server writes "40%" and the browser "40 %" (with a
+ * non-breaking space), which made React throw a hydration error on
+ * `aria-valuetext` for every progress bar on the page.
  */
 function progressAriaValueText(
     _formattedValue: string | null,

@@ -7,8 +7,8 @@ type DetailIdentityProps = {
 
 export function DetailIdentity({ name, logoUrl }: DetailIdentityProps) {
     return (
-        // `truncate` på navnet virker bare hvis raden selv får krympe —
-        // uten `min-w-0` setter et langt gruppenavn bredden på hele headeren.
+        // `truncate` on the name only works if the row itself may shrink.
+        // Without `min-w-0` a long group name sets the width of the whole header.
         <div className="flex min-w-0 items-center gap-3">
             {logoUrl ? (
                 <img

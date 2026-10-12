@@ -4,15 +4,15 @@ import * as React from "react";
 import { cn } from "#/lib/utils";
 
 /**
- * Setter linja på plass igjen når iOS Safari har mistet den.
+ * Puts the bar back in place when iOS Safari has lost it.
  *
- * Safari tegner `position: fixed` i et eget lag, og laget følger ikke alltid
- * med når viewporten endrer seg mens sida ligger i bakgrunnen. Å komme
- * tilbake fra Vipps er nettopp et slikt øyeblikk: sida fryses, Vipps overtar
- * skjermen, og når medlemmet er tilbake blir linja stående igjen midt på
- * skjermen. Ingenting i CSS-en kan uttrykke «tegn denne på nytt», så vi tvinger
- * fram en ny layout av elementet i det sida kommer til syne igjen. Det koster
- * ingenting når alt er som det skal.
+ * Safari paints `position: fixed` in its own layer, and that layer does not
+ * always follow when the viewport changes while the page is in the
+ * background. Returning from another app is such a moment: the page is
+ * frozen, and when the user comes back the bar is left in the middle of the
+ * screen. Nothing in CSS can express "repaint this", so we force a new
+ * layout of the element when the page becomes visible again. It costs
+ * nothing when everything is as it should be.
  */
 function useRepinOnViewportChange(ref: React.RefObject<HTMLElement | null>) {
     React.useEffect(() => {
@@ -23,16 +23,15 @@ function useRepinOnViewportChange(ref: React.RefObject<HTMLElement | null>) {
             if (!node) return;
             const previous = node.style.display;
             node.style.display = "none";
-            // Lesingen er poenget: den tvinger fram layouten før vi setter
-            // display tilbake, ellers slår nettleseren de to sammen til ingen
-            // endring i det hele tatt.
+            // The read is the point: it forces layout before display is restored.
+            // Otherwise the browser collapses the two changes into none at all.
             void node.offsetHeight;
             node.style.display = previous;
         }
 
         function onPageShow(event: PageTransitionEvent) {
-            // Bare den gjenopprettede sida er interessant; en fersk lasting
-            // har aldri et gammelt lag å rette opp.
+            // Only the restored page matters; a fresh load never has a stale
+            // layer to correct.
             if (event.persisted) repin();
         }
 
@@ -40,9 +39,9 @@ function useRepinOnViewportChange(ref: React.RefObject<HTMLElement | null>) {
             if (document.visibilityState === "visible") repin();
         }
 
-        // Bare de to hendelsene: `visualViewport`-endringer fyrer i tett
-        // rekkefølge mens Safari skjuler adresselinja under scrolling, og en
-        // ny layout per hendelse ville kostet mer enn den retter opp.
+        // Only these two events: `visualViewport` changes fire in quick
+        // succession while Safari hides the address bar during scrolling, and
+        // a new layout per event would cost more than it fixes.
         window.addEventListener("pageshow", onPageShow);
         document.addEventListener("visibilitychange", onVisibilityChange);
 
@@ -72,11 +71,10 @@ function BottomBar({ className, ref, ...props }: React.ComponentProps<"nav">) {
                 // `pb-safe` keeps the row clear of the iOS home indicator, which
                 // otherwise sits right on top of the labels.
                 //
-                // Ingen `backdrop-filter` her, i motsetning til headeren:
-                // et fastlåst element med bakgrunnsuskarphet får sitt eget
-                // komposittlag i WebKit, og det er nettopp de lagene som blir
-                // hengende igjen på feil sted. Bakgrunnen er derfor tett nok
-                // til å stå på egne bein.
+                // No `backdrop-filter` here, unlike the header: a fixed element with
+                // a backdrop blur gets its own compositing layer in WebKit, and
+                // those are exactly the layers that get stuck in the wrong place.
+                // The background is therefore opaque enough to stand on its own.
                 "fixed inset-x-0 bottom-0 z-40 border-t bg-background pb-[env(safe-area-inset-bottom)]",
                 className,
             )}
@@ -95,11 +93,11 @@ function BottomBarItem({ className, render, ...props }: BottomBarItemProps) {
         props: {
             "data-slot": "bottom-bar-item",
             className: cn(
-                // TanStack Router marks the matching link with data-status=active;
+                // The link for the current page carries data-status=active;
                 // anything else (the menu button) simply never gets the attribute.
-                // `wrap-normal` overstyrer den globale `overflow-wrap: anywhere`:
-                // etikettene her er korte og faste, og skal aldri deles midt i
-                // et ord («Arrangement/er»). De får heller krympe teksten.
+                // `wrap-normal` overrides the global `overflow-wrap: anywhere`: the
+                // labels here are short and fixed, and must never be split in the
+                // middle of a word. They shrink the text instead.
                 "flex flex-1 cursor-pointer flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-center text-[0.6875rem] font-medium wrap-normal text-muted-foreground outline-none transition-colors select-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 data-[status=active]:text-foreground [&_svg]:size-5 [&_svg]:shrink-0",
                 className,
             ),

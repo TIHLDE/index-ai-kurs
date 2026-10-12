@@ -21,9 +21,9 @@
     --popover-foreground: oklch(0.145 0 0);
     --primary: var(--logo);
     --primary-foreground: oklch(0.985 0 0);
-    /* Tekstlenker følger --primary i lys modus — den mørke logoblåen har rikelig
-       kontrast mot hvitt (9.27:1) og leses fint som tynn tekst. Egen token
-       likevel, fordi mørk modus må avvike; se overstyringen i `.dark`. */
+    /* Text links follow --primary in light mode: the dark logo blue has plenty
+       of contrast against white (9.27:1) and reads well as thin text. It is
+       still its own token because dark mode must differ; see `.dark`. */
     --link: var(--primary);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
@@ -36,7 +36,7 @@
     --warning: oklch(0.63 0.14 78);
     --info: oklch(0.55 0.13 245);
     --border: oklch(0.922 0 0);
-    /* Dempet skillelinje for seksjoner som ikke skal trekke blikket (footer o.l.) */
+    /* Muted divider for sections that should not draw the eye (footer etc.) */
     --border-subtle: oklch(0.97 0 0);
     /* Omrisset rundt card-flater */
     --card-border: oklch(0.922 0 0);
@@ -56,7 +56,7 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: var(--logo);
-    /* Flaten et autofylt felt males med; se autofyll-regelen nederst i fila. */
+    /* The surface an autofilled field is painted with; see the autofill rule at the bottom of the file. */
     --input-autofill: var(--card);
 }
 
@@ -70,12 +70,13 @@
     --popover-foreground: #f5f7f9;
     --primary: #1b61e4;
     --primary-foreground: #ffffff;
-    /* Her kan ikke lenker følge --primary: som tekst gir #1b61e4 bare 3.34:1 mot
-       --card (#061532), under WCAG AA. Dessuten leses en stor fylt flate lysere
-       enn tynne 14px-bokstaver i samme hex, så CTA-fyllet og lenketeksten ser
-       ulike ut. Neste trinn i navy-skalaen (hsl(219°, 75%, 60%)) løser begge:
-       5.30:1 mot --background og 4.87:1 mot --card. (Mot --popover, #091f49,
-       blir det 4.34:1 — så vidt under AA, men lenker i popovers er sjeldne.) */
+    /* Links cannot follow --primary here: as text, #1b61e4 only gives 3.34:1
+       against --card (#061532), below WCAG AA. A large filled area also reads
+       lighter than thin 14px letters in the same hex, so the CTA fill and the
+       link text look different. The next step in the navy scale
+       (hsl(219°, 75%, 60%)) solves both: 5.30:1 against --background and
+       4.87:1 against --card. (Against --popover, #091f49, it is 4.34:1, just
+       below AA, but links in popovers are rare.) */
     --link: #4d82e6;
     --secondary: #0d3172;
     --secondary-foreground: #f5f7f9;
@@ -88,12 +89,13 @@
     --warning: oklch(0.83 0.15 85);
     --info: oklch(0.75 0.13 245);
     --border: #0d3172;
-    /* Nytt trinn i navy-skalaen (L 11%), midt mellom --background (L 5.7%) og
-       #091f49 (L 16.1%). Så vidt synlig mot bakgrunnen. Merk: samme verdi som
-       --card, så en subtle separator inni et card blir usynlig. */
+    /* A new step in the navy scale (L 11%), midway between --background
+       (L 5.7%) and #091f49 (L 16.1%). Barely visible against the background.
+       Note: same value as --card, so a subtle separator inside a card is
+       invisible. */
     --border-subtle: #061532;
-    /* Ett trinn over --card i navy-skalaen, så omrisset skiller kortet fra
-       bakgrunnen uten den lyse ring-foreground/10-kanten. */
+    /* One step above --card in the navy scale, so the outline separates the
+       card from the background without the light ring-foreground/10 edge. */
     --card-border: #091f49;
     --input: #0d3172;
     --ring: #1b61e4;
@@ -112,7 +114,7 @@
     --sidebar-ring: #1b61e4;
     /* On the dark navy background the logo stays light for contrast */
     --logo: var(--foreground);
-    /* Speiler `dark:bg-input/30` lagt over --card. */
+    /* Mirrors `dark:bg-input/30` laid over --card. */
     --input-autofill: color-mix(in oklab, var(--input) 30%, var(--card));
 }
 
@@ -315,14 +317,13 @@
     * {
         @apply border-border outline-ring/50;
     }
-    /* Musepekeren skal si at noe er klikkbart. Tailwind v4 fjernet nettleserens
-     * gamle `cursor: pointer` på knapper, så uten denne står markøren som en
-     * pil over knapper, brytere, avkryssingsbokser, menyvalg og faner — og
-     * hvert komponent måtte hatt sin egen `cursor-pointer`-klasse.
+    /* The pointer should say that something is clickable. Tailwind v4 removed
+     * the browser's old `cursor: pointer` on buttons, so without this the
+     * cursor stays an arrow over buttons, switches, checkboxes, menu items and
+     * tabs, and every component would need its own `cursor-pointer` class.
      *
-     * Ligger i base-laget, så en `cursor-*`-verktøyklasse i en komponent
-     * (`cursor-text` i input-group, `cursor-w-resize` i sidebar) overstyrer den
-     * som før. Avslått tilstand kommer sist og vinner over resten. */
+     * It lives in the base layer, so a `cursor-*` utility in a component
+     * still overrides it. The disabled state comes last and wins. */
     button,
     summary,
     label[for],
@@ -346,13 +347,13 @@
         background-color: var(--background);
         color: var(--foreground);
         @apply bg-background text-foreground;
-        /* Brukerskrevet innhold inneholder ubrytelige ord: e-postadresser,
-         * URL-er, lange norske sammensetninger. Uten dette setter ett slikt
-         * ord min-content-bredden til en flex-boks, og hele sida blir
-         * bredere enn skjermen på mobil. `anywhere` (ikke `break-word`)
-         * fordi bare den påvirker intrinsic sizing — som er akkurat det
-         * flex- og grid-barn måles etter. Den slår først inn når ordet
-         * ellers ville flytt utenfor, så vanlig tekst er upåvirket. */
+        /* User-written content contains unbreakable words: email addresses,
+         * URLs, long Norwegian compounds. Without this, one such word sets the
+         * min-content width of a flex box and the whole page becomes wider
+         * than the screen on mobile. `anywhere` (not `break-word`) because only
+         * it affects intrinsic sizing, which is what flex and grid children
+         * are measured by. It only kicks in when the word would otherwise
+         * overflow, so normal text is unaffected. */
         overflow-wrap: anywhere;
     }
     html {
@@ -361,11 +362,10 @@
          * don't shift horizontally when content height changes (e.g.
          * switching between short and tall tabs). */
         scrollbar-gutter: stable;
-        /* Siste skanse mot sidescroll på mobil. `clip`, ikke `hidden`:
-         * `hidden` gjør elementet til en scroll-container, og da bytter
-         * `position: sticky` scrollport — det ville brutt den klebrige
-         * headeren og sidebaren på detaljsidene. Dette skjuler ikke reelle
-         * feil for oss; overflow-sveipen måler geometrien direkte. */
+        /* Last line of defence against sideways scrolling on mobile. `clip`,
+         * not `hidden`: `hidden` turns the element into a scroll container,
+         * and then `position: sticky` switches scrollport, which would break
+         * the sticky header and the sidebar on the detail pages. */
         overflow-x: clip;
         overflow-y: visible;
     }
@@ -529,24 +529,24 @@ body:has([data-slot="drawer-content"][data-state="open"])
     }
 }
 
-/* Autofyll: Chrome maler sin egen bakgrunn på utfylte felt, og i mørk modus er
-   den en lys blåtone som ikke ligner noe annet i grensesnittet. Den eneste
-   måten å overstyre den på er en `inset box-shadow` som dekker hele feltet.
+/* Autofill: Chrome paints its own background on filled fields, and in dark
+   mode it is a light blue that matches nothing else in the interface. The
+   only way to override it is an `inset box-shadow` covering the whole field.
 
-   Regelen må ligge her, utenfor `@layer`, og ikke som en `autofill:`-utility på
-   selve inputen: fokusringen er også en box-shadow, og med lik spesifisitet
-   vant `focus-visible:ring-3` over autofyll-skyggen — så feltet ble blått i det
-   øyeblikket det fikk fokus (issue #669). Ulagd CSS slår alle lag, og vi tar
-   med ring-variablene selv så ringen fortsatt tegnes.
+   The rule must live here, outside `@layer`, and not as an `autofill:` utility
+   on the input itself: the focus ring is also a box-shadow, and with equal
+   specificity `focus-visible:ring-3` won over the autofill shadow, so the
+   field turned blue the moment it got focus. Unlayered CSS beats every layer,
+   and we include the ring variables ourselves so the ring is still drawn.
 
-   Fargen etterligner et vanlig felt: gjennomsiktig over --card i lys modus,
-   `bg-input/30` over --card i mørk.
+   The colour mimics a normal field: transparent over --card in light mode,
+   `bg-input/30` over --card in dark.
 
-   De to blokkene under er med vilje like. `:autofill` er den standardiserte
-   formen og `:-webkit-autofill` den gamle, og en nettleser som ikke kjenner
-   selektoren forkaster HELE regelen den står i — ikke bare den ene
-   selektoren. Slår vi dem sammen til én liste, mister vi altså regelen i den
-   nettleseren som bare kjenner den andre. */
+   The two blocks below are identical on purpose. `:autofill` is the standard
+   form and `:-webkit-autofill` the old one, and a browser that does not know a
+   selector discards the WHOLE rule it appears in, not just that selector.
+   Merging them into one list would lose the rule in the browser that only
+   knows the other one. */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -559,8 +559,8 @@ select:-webkit-autofill {
         0 0 0 1000px var(--input-autofill) inset;
     -webkit-text-fill-color: var(--foreground);
     caret-color: var(--foreground);
-    /* Chrome animerer bakgrunnen tilbake til sin egen etter autofyll; en
-       absurd lang transition parkerer den på vår. */
+    /* Chrome animates the background back to its own after autofill; an
+       absurdly long transition parks it on ours. */
     transition: background-color 99999s ease-in-out 0s;
 }
 

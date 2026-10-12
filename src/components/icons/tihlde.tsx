@@ -1,35 +1,35 @@
 export type TihldeLogoProps = {
     className?: string;
     /**
-     * "mark" er bare symbolet, "full" er symbolet med TIHLDE-ordmerket ved
-     * siden av. Ordmerket er de originale bokstavformene fra logoen — ikke
-     * satt tekst.
+     * "mark" is the symbol alone, "full" is the symbol with the TIHLDE wordmark
+     * next to it. The wordmark is the original letterforms from the logo, not
+     * typeset text.
      */
     variant?: "mark" | "full";
 };
 
 /**
- * Symbolet ligger sentrert i en 512x512-boks. Ordmerket er tegnet i logoens
- * opprinnelige koordinatsystem (y-aksen peker oppover), så det plasseres via
- * en egen matrise som mapper det inn i den samme boksen.
+ * The symbol is centred in a 512x512 box. The wordmark is drawn in the logo's
+ * original coordinate system (the y axis points up), so it is placed with its
+ * own matrix that maps it into the same box.
  */
 const MARK_VIEW_BOX = "0 0 512 512";
 const FULL_VIEW_BOX = "4.25 85.38 1735.48 341.25";
 const WORDMARK_TRANSFORM = "matrix(1.158104,0,0,-1.158104,-207.0409,849.5661)";
 
 /**
- * Tilde-en fra logomerket, tegnet i merkets eget koordinatsystem. Den er
- * eksportert fordi hero-bakgrunnen bruker nøyaktig samme form som maske —
- * kopierte kurver ville drevet fra hverandre.
+ * The tilde from the logo mark, drawn in the mark's own coordinate system. It
+ * is exported because the hero background uses exactly the same shape as a
+ * mask; copied curves would drift apart.
  */
 export const TILDE_PATH =
     "M0,-30.218C0,-30.218 -32.366,13.269 -93.28,29.725C-97.453,30.861 -101.761,31.859 -106.207,32.707C-118.423,35.06 -131.651,36.278 -145.85,35.881C-149.215,35.785 -152.717,35.635 -156.37,35.402C-162.771,34.991 -169.584,34.335 -176.793,33.254C-195.288,30.491 -216.299,25.047 -239.089,14.377C-242.235,12.913 -245.409,11.34 -248.624,9.671C-249.513,9.206 -250.402,8.754 -251.291,8.303C-270.1,-1.327 -289.675,-9.029 -328.566,-11.067C-332.656,-11.272 -336.951,-11.423 -341.493,-11.518C-343.764,-11.559 -346.103,-11.573 -348.511,-11.587C-370.083,-11.669 -434.759,-0.001 -434.759,-0.001C-434.759,-0.001 -402.394,-43.473 -341.493,-59.944C-337.321,-61.065 -333.012,-62.077 -328.566,-62.912C-316.336,-65.279 -303.108,-66.496 -288.896,-66.099C-284.641,-65.976 -280.168,-65.771 -275.462,-65.415C-268.951,-64.923 -262.029,-64.157 -254.725,-62.953C-237.529,-60.135 -218.269,-54.95 -197.517,-45.471C-193.769,-43.747 -189.966,-41.9 -186.122,-39.889C-185.835,-39.739 -185.548,-39.589 -185.26,-39.452C-165.876,-29.384 -146.329,-21.258 -106.207,-19.152C-102.117,-18.933 -97.822,-18.782 -93.28,-18.686C-90.996,-18.659 -88.643,-18.632 -86.235,-18.618C-64.676,-18.55 0,-30.218 0,-30.218";
 
-/** Flytter TILDE_PATH inn i 512x512-boksen (de to nestede g-matrisene slått sammen). */
+/** Moves TILDE_PATH into the 512x512 box (the two nested g matrices combined). */
 export const TILDE_TRANSFORM =
     "matrix(1.158104,0,0,1.158104,507.7483,274.9962)";
 
-/** Tett boks rundt tilde-en etter TILDE_TRANSFORM. */
+/** Tight box around the tilde after TILDE_TRANSFORM. */
 export const TILDE_BOX = { x: 4.25, y: 197.99, width: 503.5, height: 119.02 };
 
 const FILL = "var(--color-logo, currentColor)";

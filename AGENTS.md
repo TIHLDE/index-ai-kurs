@@ -1,46 +1,47 @@
 # Mini-Kvark
 
-En liten øvingsside for Index sitt kurs i å kode med AI. Siden ser ut som Kvark, nettsiden til TIHLDE (tihlde.org), og bruker de samme komponentene og det samme temaet. Den har ingen backend. Deltakerne på kurset er nybegynnere og bygger videre på siden med hjelp fra deg.
+A small practice site for Index's course on coding with AI. The site looks like Kvark, the TIHLDE website (tihlde.org), and uses the same components and the same theme. It has no backend. The course participants are beginners and build on the site with your help.
 
-## Kommandoer
+## Commands
 
-- `bun install` installerer avhengigheter
-- `bun dev` starter siden på http://localhost:5173
-- `bun run check` kjører typesjekk, lint, tester og bygg
+- `bun install` installs dependencies
+- `bun dev` starts the site on http://localhost:5173
+- `bun run check` runs typecheck, lint, tests and build
 
-## Struktur
+## Structure
 
-- `src/pages/` har én fil per side: forside, arrangementer, ett arrangement og grupper
-- `src/components/` har deler som brukes på flere sider, som toppmeny, bunntekst og arrangementskort
-- `src/components/ui/` har grunnkomponentene fra Kvark: knapp, kort, faner, skuff og lignende
-- `src/data/` har alt innholdet. Det finnes ingen database eller API
-- `src/lib/` har små hjelpefunksjoner
-- `src/styles.css` har temaet: farger, lys og mørk modus, og animasjoner
-- `src/App.tsx` har alle rutene
-- `src/App.test.tsx` har testene
-- Importer med `#/`, som peker til `src/`. Eksempel: `import { Button } from "#/components/ui/button"`
+- `src/pages/` has one file per page: front page, events, a single event and groups
+- `src/components/` has parts used on several pages, such as the header, footer and event card
+- `src/components/ui/` has the base components from Kvark: button, card, tabs, drawer and so on
+- `src/data/` has all the content. There is no database or API
+- `src/lib/` has small helper functions
+- `src/styles.css` has the theme: colours, light and dark mode, and animations
+- `src/App.tsx` has all the routes
+- `src/App.test.tsx` has the tests
+- Import with `#/`, which points to `src/`. Example: `import { Button } from "#/components/ui/button"`
 
-## Regler
+## Rules
 
-- All tekst som vises på siden skal være på norsk bokmål. Navn i koden er på engelsk.
-- Siden skal se ut som Kvark. Bruk komponentene i `src/components/ui/` før du lager noe nytt, og se hvordan de andre sidene er bygget.
-- Bruk Tailwind-klasser til all styling, og bare temafargene: `bg-background`, `bg-card`, `bg-muted`, `text-foreground`, `text-muted-foreground`, `bg-primary` og lignende. Aldri faste farger som `bg-blue-500`. Da virker både lys og mørk modus.
-- Ikke endre filene i `src/components/ui/` eller `src/styles.css` uten å spørre først.
-- Ikke legg til nye pakker uten å spørre først.
-- Gjør bare det du blir bedt om. Ikke rydd eller skriv om annen kode samtidig.
-- Lag en kort plan og vent på svar før du gjør en endring som berører mer enn én fil.
-- Skriv en test i `src/App.test.tsx` når du legger til noe nytt som brukeren kan se eller trykke på.
-- Kjør `bun run check` før du sier at du er ferdig, og fiks det som feiler.
-- Ikke skriv kommentarer i koden med mindre de forklarer hvorfor noe uvanlig er gjort.
-- Bruk bare oppdiktede navn i innholdet. Aldri ekte personer.
-- Forklar endringene dine med enkle ord. Den du hjelper kan være helt ny i koding.
+- All text shown on the site must be in Norwegian bokmål. Names in the code, comments and commit messages are in English.
+- Write to the participant in Norwegian unless they write to you in another language.
+- The site must look like Kvark. Use the components in `src/components/ui/` before building something new, and look at how the other pages are built.
+- Use Tailwind classes for all styling, and only the theme colours: `bg-background`, `bg-card`, `bg-muted`, `text-foreground`, `text-muted-foreground`, `bg-primary` and so on. Never fixed colours like `bg-blue-500`. That keeps both light and dark mode working.
+- Do not change the files in `src/components/ui/` or `src/styles.css` without asking first.
+- Do not add new packages without asking first.
+- Only do what you are asked to do. Do not tidy up or rewrite other code at the same time.
+- Make a short plan and wait for an answer before a change that touches more than one file.
+- Write a test in `src/App.test.tsx` when you add something new that the user can see or click.
+- Run `bun run check` before you say you are done, and fix whatever fails.
+- Do not write comments in the code unless they explain why something unusual is done.
+- Only use made-up names in the content. Never real people.
+- Explain your changes in simple words. The person you are helping may be completely new to coding.
 
 ## Git
 
-- Jobb aldri direkte på `main` eller på en `deltaker/`-branch. Lag en egen branch for hver endring.
-- Ikke push, åpne PR eller merge uten at du blir bedt om det.
-- En PR skal gå mot deltakerens egen `deltaker/<brukernavn>`-branch, aldri mot `main`.
+- Never work directly on `main` or on a `deltaker/` branch. Create a separate branch for each change.
+- Do not push, open a PR or merge unless you are asked to.
+- A PR must target the participant's own `deltaker/<username>` branch, never `main`.
 
-## Dine egne regler
+## Your own rules
 
-Legg til dine egne regler under her.
+Add your own rules below.

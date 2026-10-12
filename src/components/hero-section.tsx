@@ -19,7 +19,7 @@ const formatCoordinate = (value: number) => value.toFixed(1);
 // `waveDrawEnd` units wide and slides left by exactly `waveLoopDistance`, which
 // is one wavelength of the pattern, so the frame it lands on is identical to
 // the one it started from. Both are expressed as percentages because the
-// animation lives in CSS — see `hero-waves-drift` in @tihlde/ui's styles.css.
+// animation lives in CSS; see `hero-waves-drift` in styles.css.
 const scrollLayerWidthPercent = (waveDrawEnd / svgWidth) * 100;
 const scrollLoopPercent = (waveLoopDistance / waveDrawEnd) * 100;
 
@@ -49,17 +49,17 @@ const edgeFadeMask = `linear-gradient(to bottom, ${[
     )
     .join(", ")})`;
 
-// Tilde-en fra logoen står som et dempet felt i bølgene: linjene inne i den er
-// svakere enn resten, så formen trer fram som negativt rom idet pulsen skyller
-// forbi. `tildeMaskDip` er hvor mye som tas bort — resten av heroen står urørt.
+// The tilde from the logo sits as a dimmed area in the waves: the lines inside
+// it are fainter than the rest, so the shape appears as negative space.
+// `tildeMaskDip` is how much is taken away; the rest of the hero is untouched.
 const tildeMaskDip = 0.75;
-// Mykner kanten. Blur-en ligger inne i maskebildet — en CSS-blur på laget ville
-// også visket ut bølgene. Luften rundt boksen gir blur-en plass å tone ut i.
+// Softens the edge. The blur lives inside the mask image; a CSS blur on the
+// layer would also smear the waves. The padding gives the blur room to fade.
 const tildeMaskBlur = 4;
 const tildeMaskPadding = 32;
-// Feter opp selve båndet uten å gjøre formen bredere på skjermen: strek langs
-// samme kurve legger halve bredden utenpå omrisset hele veien rundt. viewBox-en
-// står stille, så tilde-en dekker like mye bredde som før — bare tykkere.
+// Thickens the band without making the shape wider on screen: a stroke along
+// the same curve adds half its width outside the outline all the way round.
+// The viewBox stays put, so the tilde covers the same width, only thicker.
 const tildeMaskThickness = 24;
 
 const tildeMaskSvg = [
@@ -67,27 +67,27 @@ const tildeMaskSvg = [
     `<filter id="soften" x="-25%" y="-50%" width="150%" height="200%">`,
     `<feGaussianBlur stdDeviation="${tildeMaskBlur}"/>`,
     `</filter>`,
-    // Dempingen ligger på gruppa, ikke på strek og fyll hver for seg — ellers
-    // ville overlappet mellom dem lagt seg opp til en mørkere kant.
+    // The dimming is on the group, not on stroke and fill separately. Otherwise
+    // the overlap between them would add up to a darker edge.
     `<g opacity="${tildeMaskDip}" filter="url(#soften)">`,
     `<path d="${TILDE_PATH}" transform="${TILDE_TRANSFORM}" fill="black" stroke="black" stroke-width="${tildeMaskThickness}" stroke-linejoin="round"/>`,
     `</g>`,
     `</svg>`,
 ].join("");
 
-// Bredere enn heroen, så formen blir stor nok til å leses: de tynne spissene
-// går ut over kanten, mens selve svingen ligger godt innenfor.
+// Wider than the hero so the shape is large enough to read: the thin tips
+// run past the edge while the curve itself stays well inside.
 const tildeMaskWidthPercent = 130;
 
-// Kantfallet ligger øverst og trekker tilde-laget fra seg selv, så masken er
-// full i midten, toner ut mot topp og bunn, og er dempet der tilde-en ligger.
-// Hele masken bygges her, inline: `mask-image` i stilarket blir uansett
-// overstyrt av `style`-attributtet, så to halve masker kan ikke leve side om
-// side — den ene ville stilltiende bli borte.
+// The edge fade is on top and subtracts the tilde layer from itself, so the
+// mask is full in the middle, fades towards top and bottom, and is dimmed
+// where the tilde sits. The whole mask is built here, inline: `mask-image` in
+// the stylesheet is overridden by the `style` attribute anyway, so two half
+// masks cannot live side by side. One of them would silently disappear.
 //
-// Tilde-en får beholde sitt eget sideforhold (`auto` leser høyden ut av
-// viewBox-en) i stedet for å strekkes med heroen slik bølgene gjør — strukket
-// over en høy mobilskjerm ble den bare en diagonal klatt.
+// The tilde keeps its own aspect ratio (`auto` reads the height from the
+// viewBox) instead of being stretched with the hero the way the waves are.
+// Stretched over a tall mobile screen it turned into a diagonal blob.
 const heroMaskLayers = {
     maskImage: `${edgeFadeMask}, url("data:image/svg+xml,${encodeURIComponent(tildeMaskSvg)}")`,
     maskSize: `100% 100%, ${tildeMaskWidthPercent}% auto`,
@@ -198,10 +198,9 @@ export function HeroSectionBackground({ className }: { className?: string }) {
         <div
             data-slot="hero-waves"
             className={cn(
-                // Høyden kommer fra `inset-0` alene. En egen høyde her var
-                // 90vh, som er høyere enn seksjonene på /opptak, /ny-student
-                // og /bedrift — bølgene ble kappet tvert av `overflow-hidden`
-                // i bunnen i stedet for å fylle seksjonen.
+                // The height comes from `inset-0` alone. A fixed height here could be
+                // taller than the section, and `overflow-hidden` would then cut the
+                // waves off at the bottom instead of letting them fill the section.
                 "absolute inset-0 overflow-hidden text-black",
                 className,
             )}

@@ -26,10 +26,10 @@ const tabsListVariants = cva(
     {
         variants: {
             variant: {
-                /* I dark mode har --muted samme verdi som --input, så en
-                   muted-liste ville fått nøyaktig samme farge som den aktive
-                   indikatoren. Legg listen ett trinn ned i navy-skalaen
-                   (--popover) så den aktive fanen skiller seg ut. */
+                /* In dark mode --muted has the same value as --input, so a muted list
+                   would get exactly the same colour as the active indicator. Put the
+                   list one step down the navy scale (--popover) so the active tab
+                   stands out. */
                 default: "bg-muted dark:bg-popover",
                 line: "gap-1 bg-transparent",
             },

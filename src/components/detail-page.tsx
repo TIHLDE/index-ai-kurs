@@ -20,16 +20,14 @@ export function DetailPage({
             {back}
             {hero}
             {sidebar ? (
-                // `min-w-0` på hvert grid-barn: uten det får de automatisk
-                // minstebredde lik sitt eget min-content, og da vokser
-                // headeren forbi kolonna så snart et gruppenavn eller en
-                // tittel er lang. Sporet er allerede minmax(0,1fr) — det er
-                // barna som mangler tillatelsen til å krympe.
-                // `lg:grid-rows-[auto_1fr]`: sidefeltet spenner over begge
-                // radene, og med auto-rader ville et høyt sidefelt strekke
-                // rad 1 – da havnet beskrivelsen langt ned på siden. Med en
-                // fleksibel rad 2 tar brødteksten all overskytende høyde, og
-                // headeren beholder sin egen.
+                // `min-w-0` on every grid child: without it each child gets an automatic
+                // minimum width equal to its min-content, so the header grows past the
+                // column as soon as a title is long. The track is already
+                // minmax(0,1fr); it is the children that lack permission to shrink.
+                // `lg:grid-rows-[auto_1fr]`: the sidebar spans both rows, and with auto
+                // rows a tall sidebar would stretch row 1 and push the description far
+                // down the page. With a flexible row 2 the body takes the extra height
+                // and the header keeps its own.
                 <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:grid-rows-[auto_1fr] lg:gap-8">
                     <header className="flex min-w-0 flex-col gap-4 lg:col-start-1 lg:row-start-1">
                         {header}

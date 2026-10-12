@@ -16,10 +16,9 @@ export function DetailField({
 }: DetailFieldProps) {
     if (label) {
         return (
-            // Verdien lå tidligere i en `shrink-0`-boks, så lange verdier
-            // (kontaktpersoner, «Studenter ved …») presset raden ut av
-            // skjermen på mobil. Begge sidene får krympe nå; bare ikonet og
-            // handlingen holdes i full bredde.
+            // The value used to sit in a `shrink-0` box, so long values pushed the
+            // row off the screen on mobile. Both sides may shrink now; only the icon
+            // and the action keep their full width.
             <div className="flex items-start justify-between gap-3 text-sm">
                 <div className="flex min-w-0 items-center gap-2.5 text-muted-foreground">
                     {Icon ? <Icon className="size-4 shrink-0" /> : null}

@@ -30,8 +30,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        // The inline script in __root.tsx applied the theme class before
-        // hydration — adopt it as the source of truth for React state.
+        // The inline script in index.html applied the theme class before React
+        // mounted. Adopt it as the source of truth for React state.
         setTheme(readTheme());
         setMounted(true);
     }, []);

@@ -5,9 +5,7 @@ import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
 import { cn } from "#/lib/utils";
 
 type SeparatorProps = SeparatorPrimitive.Props & {
-    /**
-     * `subtle` demper linjen slik at den skiller seksjoner uten å trekke blikket.
-     */
+    /** `subtle` tones the line down so it separates sections without drawing the eye. */
     variant?: "default" | "subtle";
 };
 

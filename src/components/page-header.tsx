@@ -8,12 +8,8 @@ type PageHeaderProps = {
 };
 
 /**
- * Shared header for the public list pages: a title, an optional supporting
- * description, and an optional action slot (usually a create button) aligned
- * to the end.
- *
- * Mirrors `AdminPageHeader`, but keeps the `Reveal` wrapper the public pages
- * animate their headers with.
+ * Shared header for the list pages: a title, an optional supporting
+ * description, and an optional action slot aligned to the end.
  */
 export function PageHeader({ title, description, action }: PageHeaderProps) {
     return (
