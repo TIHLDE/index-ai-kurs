@@ -1,14 +1,580 @@
+@import "@fontsource-variable/inter";
 @import "tailwindcss";
 
-@theme {
-    --color-brand-50: #eef3fb;
-    --color-brand-100: #d8e3f6;
-    --color-brand-500: #2f5fc4;
-    --color-brand-700: #1d3f8a;
-    --color-brand-900: #12264f;
-    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+@plugin '@tailwindcss/typography';
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+    /* TIHLDE brand blue — the logo colour in light mode, and the CTA colour it
+       drives via --primary / --sidebar-primary / --ring. Dark mode overrides
+       all of these with the lighter navy-palette blue. */
+    --logo: #1c458a;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: var(--logo);
+    --primary-foreground: oklch(0.985 0 0);
+    /* Tekstlenker følger --primary i lys modus — den mørke logoblåen har rikelig
+       kontrast mot hvitt (9.27:1) og leses fint som tynn tekst. Egen token
+       likevel, fordi mørk modus må avvike; se overstyringen i `.dark`. */
+    --link: var(--primary);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.577 0.245 27.325);
+    --warning: oklch(0.63 0.14 78);
+    --info: oklch(0.55 0.13 245);
+    --border: oklch(0.922 0 0);
+    /* Dempet skillelinje for seksjoner som ikke skal trekke blikket (footer o.l.) */
+    --border-subtle: oklch(0.97 0 0);
+    /* Omrisset rundt card-flater */
+    --card-border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: var(--logo);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: var(--logo);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: var(--logo);
+    /* Flaten et autofylt felt males med; se autofyll-regelen nederst i fila. */
+    --input-autofill: var(--card);
 }
 
-body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+.dark {
+    /* Navy palette generated from A (#030B1A) — hsl(219°) scale */
+    --background: #030b1a;
+    --foreground: #f5f7f9;
+    --card: #061532;
+    --card-foreground: #f5f7f9;
+    --popover: #091f49;
+    --popover-foreground: #f5f7f9;
+    --primary: #1b61e4;
+    --primary-foreground: #ffffff;
+    /* Her kan ikke lenker følge --primary: som tekst gir #1b61e4 bare 3.34:1 mot
+       --card (#061532), under WCAG AA. Dessuten leses en stor fylt flate lysere
+       enn tynne 14px-bokstaver i samme hex, så CTA-fyllet og lenketeksten ser
+       ulike ut. Neste trinn i navy-skalaen (hsl(219°, 75%, 60%)) løser begge:
+       5.30:1 mot --background og 4.87:1 mot --card. (Mot --popover, #091f49,
+       blir det 4.34:1 — så vidt under AA, men lenker i popovers er sjeldne.) */
+    --link: #4d82e6;
+    --secondary: #0d3172;
+    --secondary-foreground: #f5f7f9;
+    --muted: #0d3172;
+    --muted-foreground: #5d8bdf;
+    --accent: #0d3172;
+    --accent-foreground: #f5f7f9;
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --warning: oklch(0.83 0.15 85);
+    --info: oklch(0.75 0.13 245);
+    --border: #0d3172;
+    /* Nytt trinn i navy-skalaen (L 11%), midt mellom --background (L 5.7%) og
+       #091f49 (L 16.1%). Så vidt synlig mot bakgrunnen. Merk: samme verdi som
+       --card, så en subtle separator inni et card blir usynlig. */
+    --border-subtle: #061532;
+    /* Ett trinn over --card i navy-skalaen, så omrisset skiller kortet fra
+       bakgrunnen uten den lyse ring-foreground/10-kanten. */
+    --card-border: #091f49;
+    --input: #0d3172;
+    --ring: #1b61e4;
+    --chart-1: #5d8bdf;
+    --chart-2: #1b61e4;
+    --chart-3: #1652c0;
+    --chart-4: #124097;
+    --chart-5: #0d3172;
+    --sidebar: #091f49;
+    --sidebar-foreground: #f5f7f9;
+    --sidebar-primary: #1b61e4;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #0d3172;
+    --sidebar-accent-foreground: #f5f7f9;
+    --sidebar-border: #0d3172;
+    --sidebar-ring: #1b61e4;
+    /* On the dark navy background the logo stays light for contrast */
+    --logo: var(--foreground);
+    /* Speiler `dark:bg-input/30` lagt over --card. */
+    --input-autofill: color-mix(in oklab, var(--input) 30%, var(--card));
+}
+
+@theme inline {
+    --font-sans: "Inter Variable", sans-serif;
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-card-border: var(--card-border);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-link: var(--link);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-warning: var(--warning);
+    --color-info: var(--info);
+    --color-border: var(--border);
+    --color-border-subtle: var(--border-subtle);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-logo: var(--logo);
+    --font-heading: var(--font-sans);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ── Motion system ────────────────────────────────────────────────────────
+   One set of easing + timing tokens so every transition and enter/exit
+   animation across @tihlde/ui reads as a single intentional system rather
+   than a grab-bag of per-component curves. Standardised on the expo-out
+   `cubic-bezier(0.22, 1, 0.36, 1)` that a few components (navigation-menu,
+   tabs) already used — it starts fast for instant feedback and decelerates
+   into a long, calm tail (essentially Emil Kowalski's strong ease-out). */
+/* Easing tokens are the published contract of the motion system, so emit them
+   with `static` — always present in `:root` even when no component currently
+   references a given curve. Without `static`, Tailwind tree-shakes unused theme
+   tokens: `--ease-in-out` had no live consumer (sheet moved to `--ease-drawer`)
+   and silently resolved to an empty string, so a future `ease-in-out` utility
+   would have gotten no curve. Tailwind's built-in easings are intentionally
+   weak; these strengthen them. `--ease-drawer` is the Ionic drawer curve. */
+@theme static {
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@theme {
+    /* Every bare `transition-*` utility (button, select trigger, table row,
+       switch, badge, …) now decelerates with the same curve instead of the
+       flat default. Components that pin an explicit `ease-*` still win. */
+    --default-transition-timing-function: var(--ease-out);
+
+    /* tw-animate-css resolves enter/exit easing via `var(--tw-ease, …)`.
+       Redefine its shorthands so dialogs, popovers, dropdowns, selects,
+       tooltips and menus that don't set an explicit `ease-*` class default to
+       our ease-out (was the flat browser `ease`). Duration fallback unchanged
+       (150ms — snappy, well under the 300ms UI ceiling); components that set
+       their own `duration-*` still win. */
+    --animate-in: enter var(--tw-animation-duration, var(--tw-duration, 0.15s))
+        var(--tw-ease, var(--ease-out)) var(--tw-animation-delay, 0s)
+        var(--tw-animation-iteration-count, 1)
+        var(--tw-animation-direction, normal)
+        var(--tw-animation-fill-mode, none);
+    --animate-out: exit var(--tw-animation-duration, var(--tw-duration, 0.15s))
+        var(--tw-ease, var(--ease-out)) var(--tw-animation-delay, 0s)
+        var(--tw-animation-iteration-count, 1)
+        var(--tw-animation-direction, normal)
+        var(--tw-animation-fill-mode, none);
+}
+
+/* ── Entrance motion ──────────────────────────────────────────────────────
+   Content that mounts — a page section, a grid of cards — fades up instead of
+   snapping in. `<Reveal>` and `<Stagger>` (components/ui/motion.tsx) are the
+   only entry points; the timing lives here so it sits next to the easing
+   tokens above rather than drifting per component.
+
+   Three deliberate choices:
+
+   1. The keyframe declares only `from`. The implicit `to` is the element's own
+      computed style, so this composes with any layout without restating it —
+      the same trick tw-animate-css uses for its `enter` keyframe.
+   2. `backwards`, not `both`. A `both` animation keeps filling after it
+      finishes, which leaves `transform` permanently applied — and a
+      transformed element is a containing block for `position: fixed`
+      descendants forever. `backwards` covers the stagger delay and then
+      releases the element completely.
+   3. Movement is 0.5rem. Entrances are seen on every navigation, so this is
+      deliberately small: enough to read as motion, not enough to feel slow. */
+@keyframes reveal-in {
+    from {
+        opacity: 0;
+        transform: translate3d(0, var(--reveal-distance, 0.5rem), 0);
+    }
+}
+
+[data-slot="reveal"] {
+    animation: reveal-in var(--reveal-duration, 0.26s) var(--ease-out) backwards;
+}
+
+/* Stagger: children enter 40ms apart, capped at 5 steps (200ms). The cap does
+   double duty. Without it a 24-card grid would still be animating a second
+   after it rendered; and because the rule also covers children appended
+   later, the cap is exactly how long a "last inn mer" batch stays invisible
+   before it fades in — 200ms after a network round-trip is unnoticeable,
+   500ms would read as the button not working.
+
+   Every direct child gets an explicit index, including the first, because
+   `--reveal-index` inherits: leaving `:nth-child(1)` to the default would let
+   a nested <Stagger> pick up its parent's offset. */
+[data-slot="stagger"] > * {
+    animation: reveal-in var(--reveal-duration, 0.26s) var(--ease-out)
+        calc(var(--reveal-step, 0.04s) * var(--reveal-index, 0)) backwards;
+}
+[data-slot="stagger"] > *:nth-child(1) {
+    --reveal-index: 0;
+}
+[data-slot="stagger"] > *:nth-child(2) {
+    --reveal-index: 1;
+}
+[data-slot="stagger"] > *:nth-child(3) {
+    --reveal-index: 2;
+}
+[data-slot="stagger"] > *:nth-child(4) {
+    --reveal-index: 3;
+}
+[data-slot="stagger"] > *:nth-child(5) {
+    --reveal-index: 4;
+}
+[data-slot="stagger"] > *:nth-child(n + 6) {
+    --reveal-index: 5;
+}
+
+/* ── Interactive surfaces ─────────────────────────────────────────────────
+   A card that navigates should answer the pointer. Keyed off `data-slot`
+   rather than a class so every current and future link-card (news, gallery,
+   …) gets the same treatment without opting in — apps/kvark is not allowed to
+   add visual classes of its own, so the default has to be right here.
+
+   The lift and the shadow carry this on their own — the cover image is
+   deliberately left alone. Zooming artwork on hover fights the content: it
+   crops the poster the designer framed, and on a wall of cards the movement
+   competes with the card that is actually being pointed at.
+
+   `@media (hover: hover)` is mandatory on hand-written rules. Tailwind wraps
+   its own `hover:` utilities in this guard, but plain CSS gets no such help,
+   and on a touch device an unguarded `:hover` sticks after a tap until the
+   user taps somewhere else. */
+:is(a, button)[data-slot="card"] {
+    transition:
+        translate 0.2s var(--ease-out),
+        box-shadow 0.2s var(--ease-out);
+}
+
+@media (hover: hover) {
+    /* Both surfaces carry `ring-1`, so their `box-shadow` is already Tailwind's
+       stack of `var(--tw-*)` slots. Feeding the elevation through `--tw-shadow`
+       layers it *under* that ring; setting `box-shadow` here would drop the
+       ring instead. */
+    :is(a, button)[data-slot="card"]:hover {
+        translate: 0 -2px;
+        --tw-shadow: 0 10px 24px -14px oklch(0 0 0 / 0.45);
+    }
+}
+
+/* Press settles the card back down, faster than it rose — the system
+   responding should always outpace the user deciding. */
+:is(a, button)[data-slot="card"]:active {
+    translate: 0 0;
+    transition-duration: 0.1s;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    /* Musepekeren skal si at noe er klikkbart. Tailwind v4 fjernet nettleserens
+     * gamle `cursor: pointer` på knapper, så uten denne står markøren som en
+     * pil over knapper, brytere, avkryssingsbokser, menyvalg og faner — og
+     * hvert komponent måtte hatt sin egen `cursor-pointer`-klasse.
+     *
+     * Ligger i base-laget, så en `cursor-*`-verktøyklasse i en komponent
+     * (`cursor-text` i input-group, `cursor-w-resize` i sidebar) overstyrer den
+     * som før. Avslått tilstand kommer sist og vinner over resten. */
+    button,
+    summary,
+    label[for],
+    [role="button"],
+    [role="tab"],
+    [role="switch"],
+    [role="checkbox"],
+    [role="radio"],
+    [role="option"],
+    [role="menuitem"],
+    [role="menuitemcheckbox"],
+    [role="menuitemradio"] {
+        cursor: pointer;
+    }
+    :disabled,
+    [aria-disabled="true"],
+    [data-disabled]:not([data-disabled="false"]) {
+        cursor: default;
+    }
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        @apply bg-background text-foreground;
+        /* Brukerskrevet innhold inneholder ubrytelige ord: e-postadresser,
+         * URL-er, lange norske sammensetninger. Uten dette setter ett slikt
+         * ord min-content-bredden til en flex-boks, og hele sida blir
+         * bredere enn skjermen på mobil. `anywhere` (ikke `break-word`)
+         * fordi bare den påvirker intrinsic sizing — som er akkurat det
+         * flex- og grid-barn måles etter. Den slår først inn når ordet
+         * ellers ville flytt utenfor, så vanlig tekst er upåvirket. */
+        overflow-wrap: anywhere;
+    }
+    html {
+        @apply font-sans;
+        /* Reserve space for the vertical scrollbar so centered layouts
+         * don't shift horizontally when content height changes (e.g.
+         * switching between short and tall tabs). */
+        scrollbar-gutter: stable;
+        /* Siste skanse mot sidescroll på mobil. `clip`, ikke `hidden`:
+         * `hidden` gjør elementet til en scroll-container, og da bytter
+         * `position: sticky` scrollport — det ville brutt den klebrige
+         * headeren og sidebaren på detaljsidene. Dette skjuler ikke reelle
+         * feil for oss; overflow-sveipen måler geometrien direkte. */
+        overflow-x: clip;
+        overflow-y: visible;
+    }
+}
+
+/* Map @tailwindcss/typography to the project's theme tokens so prose
+ * follows light/dark via the same `--foreground` etc. variables that
+ * everything else uses. Kept unlayered so it overrides the plugin's
+ * own `.prose` defaults (which live in Tailwind's components layer). */
+.prose {
+    --tw-prose-body: var(--foreground);
+    --tw-prose-headings: var(--foreground);
+    --tw-prose-lead: var(--muted-foreground);
+    --tw-prose-links: var(--link);
+    --tw-prose-bold: var(--foreground);
+    --tw-prose-counters: var(--muted-foreground);
+    --tw-prose-bullets: var(--muted-foreground);
+    --tw-prose-hr: var(--border);
+    --tw-prose-quotes: var(--foreground);
+    --tw-prose-quote-borders: var(--border);
+    --tw-prose-captions: var(--muted-foreground);
+    --tw-prose-code: var(--foreground);
+    --tw-prose-pre-code: var(--card-foreground);
+    --tw-prose-pre-bg: var(--muted);
+    --tw-prose-th-borders: var(--border);
+    --tw-prose-td-borders: var(--border);
+    --tw-prose-kbd: var(--foreground);
+}
+
+/* ── Hero waves ───────────────────────────────────────────────────────────
+   Backing animation for <HeroSectionBackground>. Every moving part here is a
+   `transform` on its own layer, and nothing that moves is ever re-painted:
+   the whole thing is handed to the compositor once and then only translated.
+
+   That constraint is the entire point. The first version drove this with SMIL
+   inside the SVG — an `animateTransform` on the line groups plus one on a
+   gradient that fed a `<mask>`, with an `feGaussianBlur` on top. None of those
+   can be composited: an animated mask has to be regenerated and re-applied
+   every frame, over a full-viewport element, on the main thread. On a phone
+   that is a continuous full-screen repaint behind a `backdrop-blur` header,
+   which is why the sweep stuttered and why opening the menu on the front page
+   felt stuck — the animation was starving everything else.
+
+   The sweep is the interesting bit. A highlight window has to travel while the
+   lines it lights up stay put, so the band carries a *static* mask and moves,
+   and its child moves back by exactly the same amount. Net motion of the lines
+   is zero, both transforms are compositor-only, and the mask never changes.
+   The two keyframes below are inverses of each other and share a duration —
+   they must be edited as a pair or the highlighted lines will drift out of
+   register with the ones underneath. */
+@keyframes hero-waves-drift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        /* One full wavelength of the pattern, so the loop is seamless. The
+           distance is geometry, so it comes from the component that draws the
+           waves rather than being restated here. */
+        transform: translate3d(calc(-1 * var(--hero-waves-loop, 40%)), 0, 0);
+    }
+}
+
+@keyframes hero-waves-sweep {
+    0% {
+        transform: translate3d(160%, 0, 0);
+        animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+    }
+    /* Crosses in the first 57% of the cycle, then waits off-screen — the rest
+       is what makes it read as an occasional pass rather than a conveyor. */
+    57%,
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+@keyframes hero-waves-sweep-counter {
+    0% {
+        transform: translate3d(-160%, 0, 0);
+        animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+    }
+    57%,
+    100% {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
+[data-slot="hero-waves-drift"] {
+    animation: hero-waves-drift var(--hero-waves-drift-duration, 18s) linear
+        infinite;
+    will-change: transform;
+}
+
+[data-slot="hero-waves-sweep"] {
+    animation: hero-waves-sweep var(--hero-waves-sweep-duration, 9s) infinite;
+    will-change: transform;
+}
+
+[data-slot="hero-waves-sweep-counter"] {
+    animation: hero-waves-sweep-counter var(--hero-waves-sweep-duration, 9s)
+        infinite;
+    will-change: transform;
+}
+
+/* Freeze the whole thing while the mobile menu is open. That drawer lays a
+   full-viewport `backdrop-filter` scrim over the page, and a backdrop filter
+   has to be re-sampled on every frame its backdrop moves — so the waves were
+   buying a full-screen blur recomputation per frame to animate something the
+   user cannot see through the blur anyway.
+
+   Keyed off the drawer's own `data-state` rather than <body>'s
+   `data-scroll-locked`: closing the menu by tapping a link navigates away
+   mid-close and vaul never removes that attribute, which would leave the hero
+   frozen for the rest of the session. This selector is correct on both close
+   paths, and if it ever stops matching the animation simply keeps running. */
+body:has([data-slot="drawer-content"][data-state="open"])
+    [data-slot^="hero-waves"] {
+    animation-play-state: paused;
+}
+
+/* Fades the lines out towards the edges and holds them well back behind the
+   hero copy. Painted once as a static mask; the layers underneath animate
+   inside it. `intersect` multiplies the two, so the centre keeps the 8% the
+   second gradient leaves and the outer falloff still applies on top. */
+[data-slot="hero-waves"] {
+    mask-image:
+        radial-gradient(
+            120% 50% at 50% 50%,
+            #000 0%,
+            #000 50%,
+            transparent 100%
+        ),
+        radial-gradient(
+            42% 42% at 50% 50%,
+            rgb(0 0 0 / 0.08) 0%,
+            rgb(0 0 0 / 0.08) 58%,
+            #000 100%
+        );
+    mask-composite: intersect;
+}
+
+/* Honour a user's reduced-motion preference globally: collapse movement-based
+   transitions and animations (slides, zooms, the spinner, the caret blink) to
+   effectively instant, while leaving final visual state intact — opacity and
+   colour still settle, just without travel. tw-animate-css ships no such guard,
+   so without this every overlay slide/zoom and infinite loop plays regardless. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        /* Delays must go too, not just durations. A staggered entrance fills
+           `backwards` — opacity 0 — for the whole delay, so an untouched
+           320ms delay would leave the last cards in a grid blank for a third
+           of a second before snapping in. That reads as a loading bug, which
+           is the opposite of what reduced motion is asking for. */
+        animation-delay: 0ms !important;
+        transition-delay: 0ms !important;
+    }
+}
+
+/* Autofyll: Chrome maler sin egen bakgrunn på utfylte felt, og i mørk modus er
+   den en lys blåtone som ikke ligner noe annet i grensesnittet. Den eneste
+   måten å overstyre den på er en `inset box-shadow` som dekker hele feltet.
+
+   Regelen må ligge her, utenfor `@layer`, og ikke som en `autofill:`-utility på
+   selve inputen: fokusringen er også en box-shadow, og med lik spesifisitet
+   vant `focus-visible:ring-3` over autofyll-skyggen — så feltet ble blått i det
+   øyeblikket det fikk fokus (issue #669). Ulagd CSS slår alle lag, og vi tar
+   med ring-variablene selv så ringen fortsatt tegnes.
+
+   Fargen etterligner et vanlig felt: gjennomsiktig over --card i lys modus,
+   `bg-input/30` over --card i mørk.
+
+   De to blokkene under er med vilje like. `:autofill` er den standardiserte
+   formen og `:-webkit-autofill` den gamle, og en nettleser som ikke kjenner
+   selektoren forkaster HELE regelen den står i — ikke bare den ene
+   selektoren. Slår vi dem sammen til én liste, mister vi altså regelen i den
+   nettleseren som bare kjenner den andre. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    box-shadow:
+        var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000),
+        0 0 0 1000px var(--input-autofill) inset;
+    -webkit-text-fill-color: var(--foreground);
+    caret-color: var(--foreground);
+    /* Chrome animerer bakgrunnen tilbake til sin egen etter autofyll; en
+       absurd lang transition parkerer den på vår. */
+    transition: background-color 99999s ease-in-out 0s;
+}
+
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active,
+textarea:autofill,
+select:autofill {
+    box-shadow:
+        var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000),
+        0 0 0 1000px var(--input-autofill) inset;
+    -webkit-text-fill-color: var(--foreground);
+    caret-color: var(--foreground);
+    transition: background-color 99999s ease-in-out 0s;
 }

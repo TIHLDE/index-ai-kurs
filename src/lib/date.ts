@@ -1,15 +1,14 @@
-const dateFormatter = new Intl.DateTimeFormat("nb-NO", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-});
+import { format } from "date-fns";
+import { nb } from "date-fns/locale";
 
-const timeFormatter = new Intl.DateTimeFormat("nb-NO", {
-    hour: "2-digit",
-    minute: "2-digit",
-});
+export function formatEventDate(iso: string): string {
+    return format(new Date(iso), "EEE d. MMM yyyy", { locale: nb });
+}
 
-export function formatEventDate(isoDate: string) {
-    const date = new Date(isoDate);
-    return `${dateFormatter.format(date)} kl. ${timeFormatter.format(date)}`;
+export function formatEventTime(iso: string): string {
+    return format(new Date(iso), "HH:mm");
+}
+
+export function formatEventDateTime(iso: string): string {
+    return `${formatEventDate(iso)}, ${formatEventTime(iso)}`;
 }

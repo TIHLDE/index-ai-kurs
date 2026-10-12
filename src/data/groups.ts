@@ -1,77 +1,34 @@
-export type GroupType = "Undergruppe" | "Komité" | "Interessegruppe";
+export type GroupType = "board" | "subgroup" | "committee" | "interestgroup";
 
 export type Group = {
     id: string;
     name: string;
     type: GroupType;
-    members: number;
-    description: string;
+    email?: string;
+    logoUrl?: string;
 };
 
-export const groupTypes: GroupType[] = ["Undergruppe", "Komité", "Interessegruppe"];
+export const groupSections: { type: GroupType; label: string }[] = [
+    { type: "board", label: "Hovedorgan" },
+    { type: "subgroup", label: "Undergrupper" },
+    { type: "committee", label: "Komitéer" },
+    { type: "interestgroup", label: "Interessegrupper" },
+];
 
 export const groups: Group[] = [
-    {
-        id: "index",
-        name: "Index",
-        type: "Undergruppe",
-        members: 32,
-        description: "Utvikler og drifter nettsiden og de andre digitale løsningene til linjeforeningen.",
-    },
-    {
-        id: "sosialen",
-        name: "Sosialen",
-        type: "Undergruppe",
-        members: 28,
-        description: "Lager fester, quizer og andre sosiale arrangementer gjennom hele året.",
-    },
+    { id: "hovedstyret", name: "Hovedstyret", type: "board", email: "styret@example.org" },
+    { id: "index", name: "Index", type: "subgroup", email: "index@example.org" },
+    { id: "sosialen", name: "Sosialen", type: "subgroup", email: "sosialen@example.org" },
     {
         id: "naeringsliv-og-kurs",
         name: "Næringsliv og Kurs",
-        type: "Undergruppe",
-        members: 24,
-        description: "Har kontakten med bedrifter og arrangerer bedriftspresentasjoner og kurs.",
+        type: "subgroup",
+        email: "naeringsliv@example.org",
     },
-    {
-        id: "promo",
-        name: "Promo",
-        type: "Undergruppe",
-        members: 19,
-        description: "Lager plakater, bilder og video, og sørger for at folk får med seg det som skjer.",
-    },
-    {
-        id: "fadderkomiteen",
-        name: "Fadderkomiteen",
-        type: "Komité",
-        members: 14,
-        description: "Planlegger fadderuka og tar imot de nye studentene hver høst.",
-    },
-    {
-        id: "jubileumskomiteen",
-        name: "Jubileumskomiteen",
-        type: "Komité",
-        members: 9,
-        description: "Planlegger feiringen når linjeforeningen har bursdag.",
-    },
-    {
-        id: "turgruppa",
-        name: "Turgruppa",
-        type: "Interessegruppe",
-        members: 41,
-        description: "Drar på fjellturer, hytteturer og skiturer. Alle nivåer er velkomne.",
-    },
-    {
-        id: "brettspillgruppa",
-        name: "Brettspillgruppa",
-        type: "Interessegruppe",
-        members: 36,
-        description: "Møtes annenhver uke for å spille brettspill og kortspill.",
-    },
-    {
-        id: "lopegruppa",
-        name: "Løpegruppa",
-        type: "Interessegruppe",
-        members: 22,
-        description: "Løper sammen to ganger i uka, og melder seg på et par løp i året.",
-    },
+    { id: "promo", name: "Promo", type: "subgroup", email: "promo@example.org" },
+    { id: "fadderkomiteen", name: "Fadderkomiteen", type: "committee", email: "fadder@example.org" },
+    { id: "jubileumskomiteen", name: "Jubileumskomiteen", type: "committee", email: "jubileum@example.org" },
+    { id: "turgruppa", name: "Turgruppa", type: "interestgroup" },
+    { id: "brettspillgruppa", name: "Brettspillgruppa", type: "interestgroup" },
+    { id: "lopegruppa", name: "Løpegruppa", type: "interestgroup" },
 ];

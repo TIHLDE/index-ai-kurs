@@ -1,6 +1,6 @@
 # Mini-Kvark
 
-En liten øvingsside for Index sitt kurs i å kode med AI. Den har en forside, en side med arrangementer og en oversikt over grupper. Alt innhold er oppdiktet.
+En liten øvingsside for Index sitt kurs i å kode med AI. Den ser ut som [tihlde.org](https://tihlde.org) og er bygget med de samme delene, men har bare en forside, arrangementer og en gruppeoversikt. Arrangementene og gruppene er oppdiktet.
 
 Du skal bygge videre på siden med hjelp fra en AI. Målet er at du merger minst én endring i kveld. Klarer du tre, er du god.
 
@@ -52,7 +52,7 @@ bun install
 bun dev
 ```
 
-Åpne http://localhost:5173 i nettleseren. Ser du «Velkommen til Mini-Kvark», er du klar.
+Åpne http://localhost:5173 i nettleseren. Ser du TIHLDE-logoen og en liste med arrangementer, er du klar.
 
 ## Lag din egen hovedbranch
 
@@ -91,7 +91,7 @@ git switch deltaker/brukernavn
 ```
 
 ```bash
-git switch -c brukernavn/sok-i-arrangementer
+git switch -c brukernavn/sok-i-grupper
 ```
 
 ### 4. Skriv prompten
@@ -100,11 +100,11 @@ Be først om forklaring og plan. Be så om kode.
 
 En dårlig prompt:
 
-> Fiks arrangementssiden.
+> Fiks gruppesiden.
 
 En god prompt:
 
-> Jeg vil ha et søkefelt øverst på arrangementssiden. Når jeg skriver, skal lista bare vise arrangementer der tittelen inneholder teksten. Les `src/pages/EventsPage.tsx` først. Lag en kort plan og vent til jeg sier ok.
+> Jeg vil ha et søkefelt øverst i gruppeoversikten. Når jeg skriver, skal siden bare vise grupper der navnet inneholder teksten. Les `src/pages/GroupsPage.tsx` først. Lag en kort plan og vent til jeg sier ok.
 
 Den gode prompten sier hva du vil ha, hvor det skal være og hvordan det skal virke.
 
@@ -128,11 +128,11 @@ git add .
 ```
 
 ```bash
-git commit -m "Legg til søk i arrangementer"
+git commit -m "Legg til søk i gruppeoversikten"
 ```
 
 ```bash
-git push -u origin brukernavn/sok-i-arrangementer
+git push -u origin brukernavn/sok-i-grupper
 ```
 
 Åpne repoet på GitHub og trykk på «Compare & pull request».
@@ -171,29 +171,30 @@ I Index går en merge til `main` rett ut til alle brukerne. Da må du også sjek
 
 ### Lett
 
-- Bytt farger og tekst på forsiden
+- Bytt teksten og knappene øverst på forsiden
 - Legg til en ny gruppe i gruppeoversikten
 - Legg til et nytt arrangement
-- Vis antall påmeldte på kortene i arrangementslista
+- Vis antall påmeldte på arrangementene i lista
 
 ### Middels
 
-- Søkefelt på arrangementssiden
-- Knapper som filtrerer arrangementer på kategori
-- Mørk modus med en knapp i menyen
+- Søkefelt i gruppeoversikten
 - Nedtelling til neste arrangement på forsiden
-- Søk i gruppeoversikten
+- En knapp som kopierer lenken til arrangementet
+- En knapp på forsiden som viser alle arrangementene, ikke bare de seks første
+- Vis hvor mange ledige plasser som er igjen på arrangementssiden
 
 ### Vanskelig
 
 - Marker arrangementer som favoritter, og husk dem når siden lastes på nytt
 - Husk påmeldingen når siden lastes på nytt
 - En egen side for hver gruppe, med arrangementene gruppa står bak
-- Kalendervisning av arrangementene
+- Kalendervisning av arrangementene, slik tihlde.org har
+- Nyheter på forsiden, slik tihlde.org har
 
 ### Fritt
 
-Har du en egen idé? Kjør på, så lenge den kan vises på siden.
+Har du en egen idé? Kjør på, så lenge den kan vises på siden. Trenger du inspirasjon, se hva tihlde.org har som Mini-Kvark mangler.
 
 ## Prompter du kan låne
 

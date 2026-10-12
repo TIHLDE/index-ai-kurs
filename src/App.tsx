@@ -1,15 +1,16 @@
 import { Route, Routes } from "react-router";
-import { Layout } from "./components/Layout";
-import { EventDetailPage } from "./pages/EventDetailPage";
-import { EventsPage } from "./pages/EventsPage";
-import { GroupsPage } from "./pages/GroupsPage";
-import { HomePage } from "./pages/HomePage";
-import { NotFoundPage } from "./pages/NotFoundPage";
+
+import { AppLayout } from "#/components/app-layout";
+import { EventDetailPage } from "#/pages/EventDetailPage";
+import { EventsPage } from "#/pages/EventsPage";
+import { GroupsPage } from "#/pages/GroupsPage";
+import { HomePage } from "#/pages/HomePage";
+import { NotFoundPage } from "#/pages/NotFoundPage";
 
 export function App() {
     return (
         <Routes>
-            <Route element={<Layout />}>
+            <Route element={<AppLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="arrangementer" element={<EventsPage />} />
                 <Route path="arrangementer/:eventId" element={<EventDetailPage />} />
